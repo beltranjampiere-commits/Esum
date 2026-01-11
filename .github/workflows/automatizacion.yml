@@ -1,0 +1,32 @@
+name: Ejecución Automática Python
+
+on:
+  # Se ejecuta cada 30 minutos (para probar)
+  schedule:
+    - cron: '*/30 * * * *' 
+  # Esto habilita un botón para que lo ejecutes manualmente AHORA mismo
+  workflow_dispatch:
+
+jobs:
+  correr-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar tu repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar librerías
+        run: |
+          pip install requests pandas gspread
+          # Aquí instalamos lo básico. Si tu script crece, agregamos más cosas.
+
+      - name: Ejecutar script.py
+        env:
+          # Aquí conectaremos tus futuras llaves (Sheets, APIs, etc)
+          MI_VARIABLE_SECRETA: ${{ secrets.MI_VARIABLE_SECRETA }}
+        run: python script.py
