@@ -100,7 +100,7 @@ def main():
 
     # --- E. GLP (Múltiples hojas) ---
     map_glp = {}
-    hojas_glp = ["octubre 2025", "NOVIEMBRE 2025", "DICIEMBRE 2025"]
+    hojas_glp = ["NOVIEMBRE 2025", "DICIEMBRE 2025", "ENERO 2026"]
     try:
         sh_glp = gc.open_by_key(IDS["GLP"])
         for nombre_hoja in hojas_glp:
