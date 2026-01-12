@@ -31,7 +31,7 @@ jobs:
       - name: Ejecutar script de importación
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python importar_retrasos.py
+        run: python importarInformacionCorreo.py
 
       # --- NUEVO: NOTIFICACIÓN DE ÉXITO ---
       - name: Enviar correo de Éxito
