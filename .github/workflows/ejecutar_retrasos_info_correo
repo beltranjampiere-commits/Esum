@@ -1,0 +1,39 @@
+name: Importar Retrasos Diarios de correo
+
+# ¿Cuándo se ejecuta?
+on:
+  # Opción 1: Manualmente (aparecerá un botón para ejecutarlo cuando quieras)
+  workflow_dispatch:
+  
+  # Opción 2: Automáticamente (Cron job)
+  # Por ejemplo: A las 15:00 UTC todos los días (puedes ajustar esto)
+  # Si no quieres que corra solo todavía, puedes borrar estas dos lineas de abajo 'schedule' y '- cron'.
+  schedule:
+    - cron: '0 15 * * *' 
+
+jobs:
+  correr-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar tu código del repositorio
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      # 2. Instalar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # 3. Instalar las librerías (pandas, gspread, etc.)
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+
+      # 4. Ejecutar el script
+      - name: Ejecutar script de importación
+        env:
+          # Aquí conectamos el Secreto de GitHub con tu código Python
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python importar_retrasos.py
