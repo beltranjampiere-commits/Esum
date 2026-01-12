@@ -28,5 +28,5 @@ jobs:
       - name: Ejecutar script.py
         env:
           # Aquí conectaremos tus futuras llaves (Sheets, APIs, etc)
-          MI_VARIABLE_SECRETA: ${{ secrets.MI_VARIABLE_SECRETA }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: python script.py
