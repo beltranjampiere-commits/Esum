@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: ✅ Éxito:Retrasos actualizados (Esum)
           body: El script se ejecutó correctamente y los datos están en Google Sheets.
-          to: tucorreo@gmail.com # <--- ¡CAMBIA ESTO POR TU CORREO DESTINO!
+          to: beltran.jampiere@pucp.edu.pe # <--- ¡CAMBIA ESTO POR TU CORREO DESTINO!
           from: Robot GitHub
 
       # --- NUEVO: NOTIFICACIÓN DE ERROR ---
