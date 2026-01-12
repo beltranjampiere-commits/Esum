@@ -1,18 +1,15 @@
-name: Ejecución Automática Python
+name: Actualización Maestra 5min
 
 on:
-  # Se ejecuta cada 30 minutos (para probar)
   schedule:
-    - cron: '*/30 * * * *' 
-  # Esto habilita un botón para que lo ejecutes manualmente AHORA mismo
-  workflow_dispatch:
+    - cron: '*/5 * * * *' # Cada 5 minutos
+  workflow_dispatch: # Botón manual
 
 jobs:
-  correr-script:
+  actualizar-datos:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Descargar tu repositorio
+      - name: Descargar repositorio
         uses: actions/checkout@v3
 
       - name: Configurar Python
@@ -21,12 +18,9 @@ jobs:
           python-version: '3.9'
 
       - name: Instalar librerías
-        run: |
-          pip install requests pandas gspread
-          # Aquí instalamos lo básico. Si tu script crece, agregamos más cosas.
+        run: pip install gspread pandas oauth2client
 
-      - name: Ejecutar script.py
+      - name: Ejecutar script
         env:
-          # Aquí conectaremos tus futuras llaves (Sheets, APIs, etc)
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: python script.py
