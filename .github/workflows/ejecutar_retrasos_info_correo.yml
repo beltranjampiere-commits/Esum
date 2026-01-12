@@ -16,24 +16,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Descargar tu código del repositorio
       - name: Checkout del código
         uses: actions/checkout@v3
 
-      # 2. Instalar Python
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      # 3. Instalar las librerías (pandas, gspread, etc.)
       - name: Instalar dependencias
         run: |
           pip install -r requirements.txt
 
-      # 4. Ejecutar el script
       - name: Ejecutar script de importación
         env:
-          # Aquí conectamos el Secreto de GitHub con tu código Python
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python importarInformacionCorreo.py
+        run: python importar_retrasos.py
+
+      # --- NUEVO: NOTIFICACIÓN DE ÉXITO ---
+      - name: Enviar correo de Éxito
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ✅ Éxito:Retrasos actualizados (Esum)
+          body: El script se ejecutó correctamente y los datos están en Google Sheets.
+          to: tucorreo@gmail.com # <--- ¡CAMBIA ESTO POR TU CORREO DESTINO!
+          from: Robot GitHub
+
+      # --- NUEVO: NOTIFICACIÓN DE ERROR ---
+      - name: Enviar correo de Error
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ❌ Error:Falló la actualización (Esum)
+          body: Algo salió mal. Por favor entra a GitHub Actions para ver el error.
+          to: tucorreo@gmail.com # <--- ¡CAMBIA ESTO TAMBIÉN!
+          from: Robot GitHub
