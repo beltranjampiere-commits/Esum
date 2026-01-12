@@ -36,4 +36,4 @@ jobs:
         env:
           # Aquí conectamos el Secreto de GitHub con tu código Python
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python importar_retrasos.py
+        run: python importarInformacionCorreo.py
