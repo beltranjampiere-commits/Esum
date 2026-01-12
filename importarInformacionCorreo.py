@@ -15,7 +15,7 @@ def importar_informacion_correo():
     # Aquí intentamos leer las credenciales de manera segura
     try:
         # Opción A: Si usas GitHub Actions (Variable de entorno)
-        creds_json = os.environ.get('GCP_CREDENTIALS')
+        creds_json = os.environ.get('GOOGLE_CREDENTIALS')
         if creds_json:
             creds_dict = json.loads(creds_json)
             creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
