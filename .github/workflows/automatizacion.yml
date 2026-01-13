@@ -2,7 +2,7 @@ name: Actualización Maestra 5min
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # Cada 5 minutos
+    - cron: '*/5 11-23 * * *'
   workflow_dispatch: # Botón manual
 
 jobs:
