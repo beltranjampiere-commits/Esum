@@ -29,7 +29,7 @@ def sincronizar_todo():
     tareas = [
         {
             "nombre": "Seguimiento Retrasos",
-            "id_origen": "1ibKghDJBmJAC_MBcOtE0bWBw8xyS-6uIn4D_Rzx6uJo",
+            "id_origen": "18FdW9ywr3A1F6l6Br4zVisHqoBkYMBcbuNVfmwUkydU",
             "hoja_origen": "SEGUIMIENTO_RETRASOS",
             "hoja_destino": "BD_IMPORTADA",
             "solo_columnas_ak": False # Copiar todo
