@@ -1,0 +1,41 @@
+name: Sincronización Bases (5min)
+
+on:
+  workflow_dispatch: # Botón manual
+  schedule:
+    - cron: '*/15 11-23 * * *'
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar librerías
+        run: pip install pandas gspread oauth2client
+
+      - name: Correr Sincronización
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python sincronizar_maestras.py
+        
+      # Opcional: Notificación SOLO si falla (para no llenarte de spam cada 5 min)
+      - name: Notificar Error
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ❌ Error Sincronización Bases
+          body: Falló la sincronización de 5 minutos. Revisa GitHub Actions.
+          to: jpdavid0719@gmail.com
+          from: Robot GitHub
