@@ -1,4 +1,4 @@
-name: Sincronización Bases (5min)
+name: Sincronización Bases (Retrasos 15 min)
 
 on:
   workflow_dispatch: # Botón manual
@@ -24,7 +24,7 @@ jobs:
       - name: Correr Sincronización
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python sincronizar_maestras.py
+        run: python sincronizar_Retrasos_Reprogrma_Reprocesos_ubicacionEsum.py
         
       # Opcional: Notificación SOLO si falla (para no llenarte de spam cada 5 min)
       - name: Notificar Error
